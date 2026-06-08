@@ -1,0 +1,26 @@
+name: 晨间计划推送
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  send-plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 发送晨间计划
+        env:
+          WECOM_CORPID: ${{ secrets.WECOM_CORPID }}
+          WECOM_SECRET: ${{ secrets.WECOM_SECRET }}
+          WECOM_AGENTID: ${{ secrets.WECOM_AGENTID }}
+          WECOM_USER: ${{ secrets.WECOM_USER }}
+        run: python scripts/send_plan.py
