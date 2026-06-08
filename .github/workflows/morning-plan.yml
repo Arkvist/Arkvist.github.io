@@ -2,8 +2,9 @@ name: 晨间计划推送
 
 on:
   schedule:
+    # 每天 UTC 0:00 = 北京时间 8:00
     - cron: '0 0 * * *'
-  workflow_dispatch:
+  workflow_dispatch:  # 支持手动触发
 
 jobs:
   send-plan:
@@ -19,8 +20,5 @@ jobs:
 
       - name: 发送晨间计划
         env:
-          WECOM_CORPID: ${{ secrets.WECOM_CORPID }}
-          WECOM_SECRET: ${{ secrets.WECOM_SECRET }}
-          WECOM_AGENTID: ${{ secrets.WECOM_AGENTID }}
-          WECOM_USER: ${{ secrets.WECOM_USER }}
+          WECOM_WEBHOOK_URL: ${{ secrets.WECOM_WEBHOOK_URL }}
         run: python scripts/send_plan.py
