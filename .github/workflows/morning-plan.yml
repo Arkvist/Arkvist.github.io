@@ -2,8 +2,8 @@ name: 晨间计划推送
 
 on:
   schedule:
-    # 每天 UTC 0:00 = 北京时间 8:00
-    - cron: '0 0 * * *'
+    # 每天 UTC 23:00 = 北京时间 7:00 (次日)
+    - cron: '0 23 * * *'
   workflow_dispatch:  # 支持手动触发
 
 jobs:
